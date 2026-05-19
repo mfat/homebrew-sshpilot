@@ -31,6 +31,9 @@ sshpilot
 
 Works on macOS Homebrew and Linuxbrew. The formula is build-from-source; first install pulls the GTK4 stack (gtk4, libadwaita, vte3, gtksourceview5, py3cairo, pygobject3, sshpass, etc.) and a Python virtualenv carrying paramiko / cryptography / keyring / psutil.
 
+## Application Launcher (macOS)
+You can use [Platypus](https://sveinbjorn.org/platypus) to create a launcher for SSH Pilot. You need the correct path (for example: /usr/local/Cellar/sshpilot/4.7.9/bin/sshpilot)
+
 ## Requirements
 [Homebrew](https://brew.sh/)
 
