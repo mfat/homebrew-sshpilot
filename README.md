@@ -32,7 +32,8 @@ sshpilot
 Works on macOS Homebrew and Linuxbrew. The formula is build-from-source; first install pulls the GTK4 stack (gtk4, libadwaita, vte3, gtksourceview5, py3cairo, pygobject3, sshpass, etc.) and a Python virtualenv carrying paramiko / cryptography / keyring / psutil.
 
 ## Requirements
-Install [Homebrew](https://brew.sh/) first
+[Homebrew](https://brew.sh/)
+
 SSH Pilot is a GUI application. After install, launch from a terminal inside an active desktop session:
 
 - **macOS** — works out of the box with the native GTK4 backend (no XQuartz needed).
