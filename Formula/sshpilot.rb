@@ -152,14 +152,6 @@ class Sshpilot < Formula
       #{pycairo_path}
     PTH
 
-    # Copy the operator-facing assets the runtime expects under
-    # `<prefix>/share/sshpilot`.
-    if File.exist?(buildpath/"sshpilot.gresource")
-      pkgshare.install "sshpilot.gresource"
-    end
-    pkgshare.install "io.github.mfat.sshpilot.desktop"
-    pkgshare.install "io.github.mfat.sshpilot.metainfo.xml"
-
     # Stage run.py inside libexec so the bin/ shim has a stable
     # invocation target; pip installed the sshpilot package itself,
     # but run.py is the operator-facing entry that adjusts sys.path
