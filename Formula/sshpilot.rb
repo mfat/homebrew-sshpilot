@@ -3,8 +3,8 @@ class Sshpilot < Formula
 
   desc "SSH connection manager and terminal with GTK4/libadwaita UI"
   homepage "https://github.com/mfat/sshpilot"
-  url "https://github.com/mfat/sshpilot/archive/refs/tags/v6.3.1.tar.gz"
-  sha256 "85cfbdc2b125c05b7cfa54c4a0d4278085d1c0e5d9248e13d053ee7f987bf070"
+  url "https://github.com/mfat/sshpilot/archive/refs/tags/v6.3.2.tar.gz"
+  sha256 "14abd8e2221bf07bda1946d102e050aa64fd60126bd730cb0ec96fc049a389f3"
   license "GPL-3.0-only"
   head "https://github.com/mfat/sshpilot.git", branch: "main"
 
