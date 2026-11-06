@@ -28,7 +28,7 @@ class Sshpilot < Formula
   depends_on "libsodium"
   depends_on "py3cairo"
   depends_on "pygobject3"
-  depends_on "python@3.13"
+  depends_on "python@3.14"
   depends_on "sshpass"
   depends_on "vte3"
 
@@ -141,12 +141,12 @@ class Sshpilot < Formula
 
     # Bridge PyGObject + pycairo from their formula installs into
     # the virtualenv's import path so the runtime can resolve `gi`
-    # + `cairo`. Both formulas install into their own opt_libexec
+    # + `cairo`. Both formulas install into their own opt_lib
     # site-packages; .pth keeps the virtualenv isolated for the
     # pip-installed deps while picking up the native bindings.
-    site_packages = libexec/"lib/python3.13/site-packages"
-    pygobject_path = Formula["pygobject3"].opt_libexec/"lib/python3.13/site-packages"
-    pycairo_path = Formula["py3cairo"].opt_libexec/"lib/python3.13/site-packages"
+    site_packages = libexec/"lib/python3.14/site-packages"
+    pygobject_path = Formula["pygobject3"].opt_lib/"python3.14/site-packages"
+    pycairo_path = Formula["py3cairo"].opt_lib/"python3.14/site-packages"
     (site_packages/"homebrew-gtk.pth").write <<~PTH
       #{pygobject_path}
       #{pycairo_path}
