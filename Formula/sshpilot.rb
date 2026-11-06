@@ -167,10 +167,45 @@ class Sshpilot < Formula
       exec "#{libexec}/bin/python" "#{libexec}/run.py" "$@"
     SHIM
     chmod 0755, bin/"sshpilot"
+
+    # macOS: a small SSHPilot.app that runs the shim above, so the app can
+    # be copied into ~/Applications (formulae cannot write there). It calls
+    # opt_bin, so a copied bundle keeps working across upgrades.
+    return unless OS.mac?
+
+    contents = prefix/"SSHPilot.app/Contents"
+    (contents/"MacOS/SSHPilot").write <<~SH
+      #!/bin/bash
+      # Finder starts apps with a minimal PATH; sshpass and friends live here.
+      export PATH="#{HOMEBREW_PREFIX}/bin:$PATH"
+      exec "#{opt_bin}/sshpilot" "$@"
+    SH
+    chmod 0755, contents/"MacOS/SSHPilot"
+    (contents/"Resources").install "packaging/macos/sshpilot.icns"
+    (contents/"Info.plist").write <<~XML
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+        <key>CFBundleExecutable</key><string>SSHPilot</string>
+        <key>CFBundleIconFile</key><string>sshpilot</string>
+        <key>CFBundleIdentifier</key><string>io.github.mfat.sshpilot</string>
+        <key>CFBundleName</key><string>SSHPilot</string>
+        <key>CFBundlePackageType</key><string>APPL</string>
+        <key>CFBundleShortVersionString</key><string>#{version}</string>
+        <key>NSHighResolutionCapable</key><true/>
+      </dict>
+      </plist>
+    XML
   end
 
   def caveats
-    <<~EOS
+    app = <<~EOS if OS.mac?
+      To add sshPilot to Applications (Launchpad, Spotlight, Dock), run:
+        cp -R #{opt_prefix}/SSHPilot.app ~/Applications/
+
+    EOS
+    app.to_s + <<~EOS
       sshPilot is a GTK4 / libadwaita application. The GUI requires a
       desktop session with the GTK runtime in scope:
 
@@ -193,5 +228,6 @@ class Sshpilot < Formula
     # signal because it proves the import + main entry are reachable).
     output = shell_output("#{bin}/sshpilot --help 2>&1", 0)
     assert_match(/sshpilot|usage|--help/i, output)
+    assert_predicate prefix/"SSHPilot.app/Contents/MacOS/SSHPilot", :executable? if OS.mac?
   end
 end
